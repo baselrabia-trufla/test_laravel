@@ -1,18 +1,17 @@
-name: GitHub Actions Start With Laravel ci
-on: [push]
+name: Github Actions CI
+'on': push
 jobs:
-  Explore-GitHub-Actions:
-    runs-on: ubuntu-latest
+  Lint_dependency-scanning:
+    name: Lint_dependency-scanning
+    runs-on: pipelinecomponents/php-security-checker:latest
     steps:
-      - run: echo "🎉 by a ${{ github.event_name }} event, This job is now running on a ${{ runner.os }} server on  branch is ${{ github.ref }}."
-
-      - name: Check out repository code
-        uses: actions/checkout@v3
-
-      - run: php artisan test
-
-      - name: List files in the repository
-        run: |
-          ls ${{ github.workspace }}
-          
-      - run: echo "🍏 This job's status is ${{ job.status }}."
+      - name: Check Out dependency-scanning step 0
+        run: >-
+          cd ${COMPOSER_LOCATION:-.} && security-checker security:check
+          composer.lock
+      - name: Check Out dependency-scanning step 1
+        run: rm composer.lock
+    continue-on-error: true
+    if: ${{ !contains(['staging','master'], github.ref) }}
+    
+  

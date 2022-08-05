@@ -4,7 +4,7 @@ jobs:
   Explore-GitHub-Actions:
     runs-on: ubuntu-latest
     steps:
-      - run: echo "🎉 by a ${{ github.event_name }} event, This job is now running on a ${{ runner.os }} server on  branch is ${{ github.ref }}
+      - run: echo "🎉 by a ${{ github.event_name }} event, This job is now running on a ${{ runner.os }} server on  branch is ${{ github.ref }}."
 
       - name: Check out repository code
         uses: actions/checkout@v3

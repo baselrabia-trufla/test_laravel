@@ -12,6 +12,6 @@ jobs:
       - name: Check Out dependency-scanning step 1
         run: rm composer.lock
     continue-on-error: true
-    if: ${{ !contains(['staging','master'], github.ref) }}
+    if: ${{ !contains(fromJson('["staging","master"]'), github.ref) }}
     
   
